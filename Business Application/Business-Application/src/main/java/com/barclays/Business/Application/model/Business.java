@@ -1,13 +1,18 @@
 package com.barclays.Business.Application.model;
 
-import java.sql.Date;
+import java.util.Date;
+
+//import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="customer")
@@ -23,8 +28,15 @@ public class Business {
 	@Column
 	private String name;
 	
-	@Column
-	private Date date_of_birth;
+
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	private Date timestamp;
+
+	@PrePersist
+	private void onCreate() {
+	    timestamp = new Date();
+	}
 
 	public long getCustomer_id() {
 		return customer_id;
@@ -54,20 +66,22 @@ public class Business {
 		this.name = name;
 	}
 
-	public Date getDate_of_birth() {
-		return date_of_birth;
-	}
+	
 
-	public void setDate_of_birth(Date date_of_birth) {
-		this.date_of_birth = date_of_birth;
-	}
-
-	public Business(long customer_id, String emailid, String name, Date date_of_birth) {
+	public Business(long customer_id, String emailid, String name, Date timestamp) {
 		super();
 		this.customer_id = customer_id;
 		this.emailid = emailid;
 		this.name = name;
-		this.date_of_birth = date_of_birth;
+		this.timestamp = timestamp;
+	}
+
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 	

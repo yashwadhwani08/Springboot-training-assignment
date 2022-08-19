@@ -27,12 +27,12 @@ public class BusinessController {
 				
 	}
 	
-	@GetMapping("/customer/id")
+	@GetMapping("/customer/{id}")
 	private Business getCustomer(@PathVariable("id") long id) {
 		return businessService.getCustomerByID(id);
 	}
 	
-	@DeleteMapping("/customer/id")
+	@DeleteMapping("/customer/{id}")
 	private void deleteCustomer(@PathVariable("id") long id)
 	{
 		businessService.delete(id);
